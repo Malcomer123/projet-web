@@ -1,31 +1,112 @@
 const express = require('express');
 const router = express.Router();
+const { PrismaClient } = require('@prisma/client');
 
-router.get('/', (req, res)=>{
-    // GET pour articles
-    const {take, skip} = req.query;
+const prisma = new PrismaClient();
+
+router.get('/', async (req, res) => {
+    const { take, skip } = req.query;
     const takeValue = parseInt(take);
-    const skipValue = parseInt(skip)
+    const skipValue = parseInt(skip);
 
-    // to be added
+    try {
+        const articles = await prisma.article.findMany({
+            take: takeValue,
+            skip: skipValue,
+            include: {
+                categorie: true, // Include the related Categorie model
+                commentaires: true,  // Include the related Comment model
+                utilisateur: true     // Include the related Utilisateur model
+            }
+        });
+        res.json(articles);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.get("/:id", (req, res)=>{
-    const {id} = req.params;
-    res.send(id);
-    // to be added
+router.get('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const article = await prisma.article.findUnique({
+            where: { id: parseInt(id) },
+            include: {
+                categorie: true, // Include the related Categorie model
+                commentaires: true,  // Include the related Comment model
+                utilisateur: true     // Include the related Utilisateur model
+            }
+        });
+
+        if (!article) {
+            res.status(404).json({ error: 'Article not found' });
+        } else {
+            res.json(article);
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.post("/",(req, res)=>{
-    // to be added for create
+router.post('/', async (req, res) => {
+    const { titre, contenu, image, published, auteurId } = req.body;
+
+    try {
+        const article = await prisma.article.create({
+            data: {
+                titre,
+                contenu,
+                image,
+                published,
+                auteurId,
+            },
+        });
+
+        res.json(article);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.patch("/",(req, res)=>{
-    // to be added for create
+router.patch('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { titre, contenu, image, published, auteurId } = req.body;
+
+    try {
+        const updatedArticle = await prisma.article.update({
+            where: { id: parseInt(id) },
+            data: {
+                titre,
+                contenu,
+                image,
+                published,
+                auteurId,
+            },
+        });
+
+        res.json(updatedArticle);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
-router.delete("/",(req, res)=>{
-    // to be added for create
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const deletedArticle = await prisma.article.delete({
+            where: { id: parseInt(id) },
+        });
+
+        res.json(deletedArticle);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
 });
 
 module.exports = router;
