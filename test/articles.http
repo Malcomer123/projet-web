@@ -1,4 +1,49 @@
-GET http://localhost:3000/articles/1
+DELETE http://localhost:3000/articles/2
+Content-Type: application/json
+
+
+###
+PATCH http://localhost:3000/articles/1
+Content-Type: application/json
+
+{
+  "contenu": "loremm2"
+}
+
+###
+GET http://localhost:3000/articles/get?take=1&skip=0
 Accept: application/json
+
+###
+POST http://localhost:3000/articles/
+Content-Type: application/json
+
+{
+  "titre": "Hey brothsssers",
+  "contenu": "loreeeeeeeeeeeeeeeeeeeeeeem",
+  "image": "url",
+  "published": false,
+  "auteurId": 1,
+  "categorieId": [
+    {
+      "id": 1
+    },
+    {
+      "id": 3
+    }
+  ]
+}
+
+###
+POST http://localhost:3000/articles/
+Content-Type: application/json
+
+{
+  "titre": "Hey sisters",
+  "contenu": "loreeeeeeeeeeeeeeeeeeeeeeem2",
+  "image": "url",
+  "published": true,
+  "auteurId": 1
+}
 
 ###

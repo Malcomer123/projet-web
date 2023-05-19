@@ -13,16 +13,12 @@ router.get('/', async (req, res) => {
         const articles = await prisma.article.findMany({
             take: takeValue,
             skip: skipValue,
-            include: {
-                categorie: true, // Include the related Categorie model
-                commentaires: true,  // Include the related Comment model
-                utilisateur: true     // Include the related Utilisateur model
-            }
+            include: {categories: true}
         });
         res.json(articles);
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json(error);
     }
 });
 
@@ -32,11 +28,6 @@ router.get('/:id', async (req, res) => {
     try {
         const article = await prisma.article.findUnique({
             where: { id: parseInt(id) },
-            include: {
-                categorie: true, // Include the related Categorie model
-                commentaires: true,  // Include the related Comment model
-                utilisateur: true     // Include the related Utilisateur model
-            }
         });
 
         if (!article) {
@@ -51,7 +42,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { titre, contenu, image, published, auteurId } = req.body;
+    const { titre, contenu, image, published, auteurId, categorieId } = req.body;
 
     try {
         const article = await prisma.article.create({
@@ -61,13 +52,13 @@ router.post('/', async (req, res) => {
                 image,
                 published,
                 auteurId,
+                categories: { connect: categorieId.map((categoryId) => ({ id: categoryId.id }))}
             },
         });
 
         res.json(article);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json(error.message);
     }
 });
 

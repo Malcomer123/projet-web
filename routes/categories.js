@@ -10,11 +10,18 @@ router.get('/:id', async (req, res) => {
         const categorie = await prisma.categorie.findUnique({
             where: {
                 id: parseInt(id)
-            },
-            include: {
-                articles: true
             }
         });
+        res.json(categorie);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error getting categorie by id');
+    }
+});
+
+router.get('/', async (req, res) => {
+    try {
+        const categorie = await prisma.categorie.findMany();
         res.json(categorie);
     } catch (error) {
         console.error(error);
@@ -27,7 +34,7 @@ router.post('/', async (req, res) => {
     try {
         const categorie = await prisma.categorie.create({
             data: {
-                nomà
+                nom
             }
         });
         res.json(categorie);
