@@ -1,5 +1,5 @@
 /.idea/runConfigurations/bin_www.xml
-/.idea/.gitignore
+/backend/.idea/.gitignore
 /.idea/jsLibraryMappings.xml
 /.idea/modules.xml
 /.idea/projet-web.iml
@@ -402,3 +402,7 @@
 /node_modules/@prisma/engines-version/LICENSE
 /node_modules/@prisma/engines-version/package.json
 /node_modules/@prisma/engines-version/README.md
+/node_modules/
+/.idea/
+/backend/node_modules/
+/backend/.idea/
