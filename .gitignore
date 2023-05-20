@@ -346,7 +346,6 @@
 /node_modules/vary/package.json
 /node_modules/vary/README.md
 /node_modules/.package-lock.json
-/.env
 /.idea/dataSources/1e8bd2d7-c6d8-4fac-9552-540cadc9f94f/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta
 /.idea/dataSources/1e8bd2d7-c6d8-4fac-9552-540cadc9f94f/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta
 /.idea/dataSources/1e8bd2d7-c6d8-4fac-9552-540cadc9f94f/storage_v2/_src_/database/postgres.edMnLQ.meta
