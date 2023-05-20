@@ -1,3 +1,7 @@
+GET http://localhost:80/api/item?id=99
+Accept: application/json
+
+###
 DELETE http://localhost:3000/articles/2
 Content-Type: application/json
 
@@ -11,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/articles/get?take=1&skip=0
+GET http://localhost:3000/articles/?take=1&skip=0
 Accept: application/json
 
 ###
