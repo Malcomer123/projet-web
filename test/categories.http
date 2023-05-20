@@ -1,0 +1,30 @@
+GET http://localhost:3000/categories/1
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "nom": "Action"
+}
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "nom": "Comedy"
+}
+
+###
+
+PATCH http://localhost:3000/categories/1
+Content-Type: application/json
+
+{
+  "nom": "Romance"
+}
+###
+
+DELETE http://localhost:3000/categories/2
+
