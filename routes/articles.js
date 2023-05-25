@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
         const articles = await prisma.article.findMany({
             take: takeValue,
             skip: skipValue,
-            include: {categories: true}
+            include: {categories: true, commentaires: true, auteur: true},
         });
         res.json(articles);
     } catch (error) {
@@ -28,6 +28,7 @@ router.get('/:id', async (req, res) => {
     try {
         const article = await prisma.article.findUnique({
             where: { id: parseInt(id) },
+            include: {categories: true, commentaires: true, auteur: true},
         });
 
         if (!article) {
@@ -41,17 +42,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+
 router.post('/', async (req, res) => {
     const { titre, contenu, image, published, auteurId, categorieId } = req.body;
 
     try {
         const article = await prisma.article.create({
             data: {
-                titre,
-                contenu,
-                image,
-                published,
-                auteurId,
+                titre: titre,
+                contenu: contenu,
+                image: image,
+                published: published,
+                auteurId: req.user.userId,
                 categories: { connect: categorieId.map((categoryId) => ({ id: categoryId.id }))}
             },
         });
@@ -85,7 +87,7 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',async (req, res) => {
     const { id } = req.params;
 
     try {

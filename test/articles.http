@@ -1,4 +1,4 @@
-GET http://localhost:80/api/item?id=99
+GET http://localhost:3000/categories/2
 Accept: application/json
 
 ###
@@ -15,7 +15,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/articles/?take=1&skip=0
+GET http://localhost:3030/articles/?take=1&skip=0
 Accept: application/json
 
 ###

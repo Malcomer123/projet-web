@@ -6,10 +6,14 @@ const prisma = new PrismaClient();
 
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
+  const { email } = req.body;
   try {
     const user = await prisma.utilisateur.findUnique({
       where: {
-        id: parseInt(id)
+        OR: [
+          { id: parseInt(id) },
+          { email: email }
+        ]
       }
     });
     res.json(user);

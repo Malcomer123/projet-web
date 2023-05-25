@@ -31,16 +31,27 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const { email, contenu, articleId } = req.body;
+    const { contenu, articleId } = req.body;
     try {
-        const commentaire = await prisma.commentaire.create({
-            data: {
-                email,
-                contenu,
-                articleId,
+        const user = await prisma.utilisateur.findUnique({
+            where:{
+                id: req.user.userId
             }
         });
+        const email = user.email;
+        const commentaire = await prisma.commentaire.create({
+            data: {
+                email: email,
+                contenu: contenu,
+                article: {
+                    connect: {
+                        id: articleId,
+                    },
+                },
+            },
+        });
         res.json(commentaire);
+
     } catch (error) {
         console.error(error);
         res.status(500).send('Error creating commentaire');
