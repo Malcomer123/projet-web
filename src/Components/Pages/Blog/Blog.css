@@ -1,0 +1,64 @@
+.container-content {
+    max-width: 2000px; /*960*/
+    padding-bottom: 50px;
+}
+.blog-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+
+}
+
+.title-madeby{
+    right: 300px;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+}
+
+.title {
+    position: relative;
+    display: inline-block;
+    font-size: 30px;
+    margin: 50px 200px;
+    font-weight: bolder;
+    width: 50%;
+}
+
+.title::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%; /* Adjust the width of the initial underline */
+    height: 2px; /* Adjust the height of the initial underline */
+    background-color: #000; /* Adjust the color of the initial underline */
+    transition: width 0.3s ease-in-out; /* Add a transition effect for the width change */
+}
+
+.blog-text{
+    margin: 0 200px;
+    text-align: justify;
+}
+
+.title-madeby-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: -5px;
+    font-size: 20px;
+}
+
+.title-madeby-content-user{
+    font-size: 20px;
+    font-weight:bold;
+}
+
+.title-madeby-content-date{
+    font-size: 15px;
+    margin-left: 9px;
+    margin-top: -1px;
+}

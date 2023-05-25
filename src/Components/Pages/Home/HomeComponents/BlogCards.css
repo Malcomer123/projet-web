@@ -1,0 +1,41 @@
+.container-content {
+    margin: 0 auto;
+    max-width: 1400px; /*960*/
+    padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: flex-start;
+
+}
+.title {
+    position: relative;
+    margin-top: 35px;
+    margin-left: 50px
+}
+
+.title::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%; /* Adjust the width of the initial underline */
+    height: 2px; /* Adjust the height of the initial underline */
+    background-color: red; /* Adjust the color of the initial underline */
+    transition: width 0.3s ease-in-out; /* Add a transition effect for the width change */
+}
+
+
+.cardsD {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
+    width: 95%;
+    margin: 0 50px 50px;
+    flex-grow: 1;
+    gap: 30px;
+}
+
+.card-image{
+    object-fit: cover;
+}

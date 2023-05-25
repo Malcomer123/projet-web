@@ -1,0 +1,24 @@
+header span {
+    font-size: 40px;
+    font-weight: 600;
+    margin-left: 50px;
+    font-style: italic;
+    color: #fdfdfe;
+    text-shadow: 0 0 5px #b393d3, 0 0 10px #b393d3, 0 0 10px #b393d3,
+    0 0 20px #b393d3;
+}
+
+.HeaderPage{
+    background-color: #301934;
+    background-image: url("D:\ENSET GLSID\S2\WEB\projet-web-frontend\src\assets\confetti.jpg");
+    padding: 40px;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+    background-position: center;
+}
+
+.home{
+    height: 100%;
+}
