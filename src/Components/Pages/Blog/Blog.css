@@ -42,6 +42,7 @@
 .blog-text{
     margin: 0 200px;
     text-align: justify;
+    word-break: break-word;
 }
 
 .title-madeby-content{
