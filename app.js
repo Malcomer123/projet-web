@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', indexRouter);
-app.use('/users',verifyTokenMiddleware, usersRouter);
+app.use('/users', usersRouter);
 app.use('/articles',verifyTokenMiddleware, articlesRouter);
 app.use('/categories',verifyTokenMiddleware, categorieRouter);
 app.use('/commentaire',verifyTokenMiddleware, commentaireRouter);

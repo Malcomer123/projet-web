@@ -34,17 +34,8 @@ router.get('/check',verifyTokenMiddleware, async (req, res)=>{
     res.json(true);
 })
 
-// Signup endpoint
-router.post('/signup',(req, res) => {
-    // This endpoint will only be reached if the token is valid
-    // Perform signup logic
-    // ...
-
-    res.send('Signup successful!');
-});
 
 router.get('/logout', (req, res) => {
-    res.clearCookie('token'); // Replace 'token' with the actual name of your cookie
     res.send("Done");
 });
 

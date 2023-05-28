@@ -13,12 +13,24 @@ router.get('/', async (req, res) => {
         const articles = await prisma.article.findMany({
             take: takeValue,
             skip: skipValue,
+            where:{
+                published: true
+            },
+            orderBy:{
+                createdAt: 'desc'
+            },
             include: {categories: true, commentaires: true, auteur: true},
         });
-        res.json(articles);
+
+        const count = await prisma.article.count({
+            where:{
+                published: true
+            }
+        });
+        res.json({articles: articles, count: count});
     } catch (error) {
         console.error(error);
-        res.status(500).json(error);
+        res.status(500).json(error.data);
     }
 });
 
@@ -26,15 +38,21 @@ router.get('/:id', async (req, res) => {
     const { id } = req.params;
 
     try {
+        const user = await prisma.utilisateur.findUnique({
+            where:{
+                id: req.user.userId
+            }
+        });
         const article = await prisma.article.findUnique({
             where: { id: parseInt(id) },
             include: {categories: true, commentaires: true, auteur: true},
         });
 
+
         if (!article) {
             res.status(404).json({ error: 'Article not found' });
         } else {
-            res.json(article);
+            res.json({article: article, emailOwner: user.email});
         }
     } catch (error) {
         console.error(error);
@@ -44,7 +62,7 @@ router.get('/:id', async (req, res) => {
 
 
 router.post('/', async (req, res) => {
-    const { titre, contenu, image, published, auteurId, categorieId } = req.body;
+    const { titre, contenu, image, published, categorieId } = req.body;
 
     try {
         const article = await prisma.article.create({
@@ -54,7 +72,8 @@ router.post('/', async (req, res) => {
                 image: image,
                 published: published,
                 auteurId: req.user.userId,
-                categories: { connect: categorieId.map((categoryId) => ({ id: categoryId.id }))}
+                categories: {
+                    connect: {id: categorieId }}
             },
         });
 

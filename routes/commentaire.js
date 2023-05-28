@@ -6,8 +6,13 @@ const prisma = new PrismaClient();
 
 router.get('/', async (req, res) => {
     try {
-        const categorie = await prisma.commentaire.findMany();
-        res.json(categorie);
+        const user = await prisma.utilisateur.findUnique({
+            where:{
+                id: req.user.userId
+            }
+        });
+        const commentaire = await prisma.commentaire.findMany();
+        res.json({commentaires: commentaire, emailOwner: user.email});
     } catch (error) {
         console.error(error);
         res.status(500).send('Error getting categorie by id');
@@ -60,14 +65,15 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
     const { id } = req.params;
-    const { email, contenu } = req.body;
+    const {  contenu } = req.body;
     try {
+        console.log(id);
+        console.log(contenu);
         const updatedCommentaire = await prisma.commentaire.update({
             where: {
                 id: parseInt(id)
             },
             data: {
-                email,
                 contenu
             }
         });
@@ -81,6 +87,7 @@ router.patch('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
     const { id } = req.params;
     try {
+        console.log(id);
         const deletedCommentaire = await prisma.commentaire.delete({
             where: {
                 id: parseInt(id)

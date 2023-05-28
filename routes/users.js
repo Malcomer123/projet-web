@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client');
+const {verifyTokenMiddleware} = require("../jwtMiddleware/jwtMiddleware");
 
 const prisma = new PrismaClient();
 
-router.get('/:id', async (req, res) => {
+router.get('/:id',verifyTokenMiddleware, async (req, res) => {
   const { id } = req.params;
   const { email } = req.body;
   try {
@@ -41,7 +42,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.patch('/:id', async (req, res) => {
+router.patch('/:id',verifyTokenMiddleware, async (req, res) => {
   const { id } = req.params;
   const { nom, email, password, role } = req.body;
   try {
@@ -63,7 +64,7 @@ router.patch('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',verifyTokenMiddleware, async (req, res) => {
   const { id } = req.params;
   try {
     const deletedUser = await prisma.utilisateur.delete({
