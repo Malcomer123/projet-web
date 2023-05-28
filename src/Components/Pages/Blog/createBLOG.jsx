@@ -55,6 +55,7 @@ export default function CreateBLOG() {
         console.log(data);
       axiosConfig.post('http://localhost:3030/articles/', data).then((res)=>{
           console.log(res.data);
+          window.location.href='/';
       });
     }
 

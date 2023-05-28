@@ -21,10 +21,11 @@
     transition: transform 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    background-image: url("D:\ENSET GLSID\S2\WEB\projet-web-frontend\src\assets\cards.jpg");
+    background-image: url("../../../../assets/cards.jpg");
     background-size: cover;
     background-position: center;
     position: relative;
+    cursor: pointer;
 }
 
 .cardb::after{

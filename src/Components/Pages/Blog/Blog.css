@@ -1,6 +1,7 @@
-.container-content {
+.container-content-blog {
     max-width: 2000px; /*960*/
     padding-bottom: 50px;
+    padding-right: 200px;
 }
 .blog-header{
     display: flex;
@@ -12,10 +13,10 @@
 }
 
 .title-madeby{
-    right: 300px;
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .title {

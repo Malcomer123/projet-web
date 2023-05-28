@@ -3,6 +3,8 @@ import {NavLink} from "react-router-dom";
 import "./Navbar.css"
 import {ReactComponent as Brand} from "../../../assets/logo.svg";
 import {GiHamburgerMenu} from "react-icons/gi";
+import {axiosConfig} from "../../../config";
+import Cookies from 'js-cookie';
 
 
 export const Navbar = () => {
@@ -10,6 +12,13 @@ export const Navbar = () => {
 
     const handleShowNavbar = () => {
         setShowNavbar(!showNavbar)
+    }
+
+    const handleLogout = () => {
+        Cookies.remove('token');
+        axiosConfig.get('http://localhost:3030/auth/logout').then(()=>{
+            window.location.href='/login';
+        })
     }
 
     return (
@@ -27,16 +36,7 @@ export const Navbar = () => {
                             <NavLink to="/">Home</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/blog">Blog</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/projects">Projects</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/about">About</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/contact">Contact</NavLink>
+                            <NavLink onClick={handleLogout} to="/login">Deconnecter</NavLink>
                         </li>
                     </ul>
                 </div>

@@ -1,6 +1,6 @@
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Layout, Home, Blog, Login, CreateBlog} from "./Components";
+import {Layout, Home, Blog, Login, CreateBlog, Signup} from "./Components";
 import {useEffect} from "react";
 import {axiosConfig} from "./config";
 import Cookies from "js-cookie"
@@ -16,7 +16,6 @@ function App() {
           token: Cookies.get('token')
         }
       }).then((res) => {
-        console.log(res.data)
         if (!res.data) {
           if (currentPath !== '/login' && currentPath !== '/signup') {
             window.location.href = '/login';
@@ -26,7 +25,7 @@ function App() {
             window.location.href = '/';
           }
         }
-      }).catch((error)=>{
+      }).catch(()=>{
         if (currentPath !== '/login' && currentPath !== '/signup') {
           window.location.href = '/login';
         }
@@ -44,11 +43,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout/>}>
             <Route index element={<Home/>}/>
-            <Route path={"all-blogs"} element={(<div>hi</div>)}/>
             <Route path={"blog/:id"} element={<Blog/>}/>
             <Route path={"createblog"} element={<CreateBlog/>}/>
           </Route>
           <Route path={"/login"} element={<Login/>}/>
+          <Route path={"/signup"} element={<Signup/>}/>
 
         </Routes>
       </BrowserRouter>

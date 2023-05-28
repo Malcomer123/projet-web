@@ -8,7 +8,7 @@ const Home = () => {
         <div className={"home"}>
             <div className={"HeaderPage"}>
                 <header>
-                    <span>Popular Blogs</span>
+                    <span>Latest Blogs</span>
                 </header>
                 <HeaderCards/>
             </div>

@@ -8,11 +8,14 @@ const HeaderCards = () => {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         axiosConfig.get('http://localhost:3030/articles/?take=3&skip=0').then((res) =>{
-            console.log(res)
-            setData(res.data);
+            setData(res.data.articles);
             setLoading(false);
         })
     }, []);
+
+    const handleClick = (e) => {
+      window.location.href='/blog/'+e.id;
+    }
 
 
     return (
@@ -20,7 +23,7 @@ const HeaderCards = () => {
             {loading ? <Loading/> :
                 <div className="grid-container">
                     {data.map((e) => (
-                        <div className="cardb">
+                        <div key={e.id} className="cardb" onClick={()=>handleClick(e)}>
                             <div className={"cardb-text"}>
                                 <div className={"cardb-text-title"}>{e.titre}</div>
                                 <div className={"cardb-text-date"}>{new Date(e.createdAt).toLocaleDateString("fr-FR",{
